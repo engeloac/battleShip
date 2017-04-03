@@ -14,15 +14,16 @@ import javax.swing.ImageIcon;
  */
 public class TbattleShip extends Tbox{
     
-    public TbattleShip(String direction, String direction1, int positionX, int positionY, int positionX1, int positionY1,boolean [] battleShipSize, boolean state) {
-        super(direction, positionX, positionY, positionX1, positionY1, state);
+    public TbattleShip(String direction, String direction1, int positionX, int positionY, int positionX1, int positionY1,boolean [] battleShipSize,boolean orientation, boolean state) {
+        super(direction, positionX, positionY, positionX*battleShipSize.length, positionY1, state);
         this.battleShipeSize = battleShipSize;
         this.direction1 = direction1;
+        this.orientation = orientation;
         this.imgVertical = new ImageIcon(new ImageIcon(getClass().getResource(direction1)).getImage());
     }
     @Override
     public void paint(Graphics g) {
-        if (orientation) g.drawImage(getImgHorizontal().getImage(), getPositionX(), getPositionY(), getPositionX()*battleShipeSize.length, getPositionY1(), null);
+        if (orientation) g.drawImage(getImgHorizontal().getImage(), getPositionX(), getPositionY(), 48*battleShipeSize.length, 48, null);
     }
     //----------------------------------------------------------------------------
     public boolean[] getBattleShipeSize() {

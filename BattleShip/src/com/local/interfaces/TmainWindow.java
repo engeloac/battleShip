@@ -5,15 +5,10 @@
  */
 package com.local.interfaces;
 
-import com.usr.objects.Tbox;
 
 public class TmainWindow extends javax.swing.JFrame {
     public TmainWindow() {
-        
         initComponents();
-        Tbox img = new Tbox("/com/usr/resorcs/pictures.jpg",0,0,48,48,true);
-        img.paint(jPanel1.getGraphics());
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -27,6 +22,11 @@ public class TmainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jPanel1MouseMoved(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("Play");
@@ -57,6 +57,10 @@ public class TmainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPanel1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1MouseMoved
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
