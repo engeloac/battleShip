@@ -5,7 +5,7 @@
  */
 package com.usr.badcompany;
 
-import com.local.interfaces.TbadCompany;
+
 
 /**
  *

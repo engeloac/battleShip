@@ -7,8 +7,8 @@ package com.local.interfaces;
 
 import com.usr.objects.Tbox;
 
-public class TbadCompany extends javax.swing.JFrame {
-    public TbadCompany() {
+public class TmainWindow extends javax.swing.JFrame {
+    public TmainWindow() {
         
         initComponents();
         Tbox img = new Tbox("/com/usr/resorcs/pictures.jpg",0,0,48,48,true);
@@ -61,7 +61,7 @@ public class TbadCompany extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TbadCompany().setVisible(true);
+                new TmainWindow().setVisible(true);
             }
         });
     }
