@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package battleship;
+package com.usr.badcompany;
+
+import com.local.interfaces.TbadCompany;
 
 /**
  *
@@ -16,6 +18,10 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        TbadCompany frame = new TbadCompany();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        
     }
     
 }
