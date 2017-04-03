@@ -59,10 +59,8 @@ public class TmainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TmainWindow().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new TmainWindow().setVisible(true);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

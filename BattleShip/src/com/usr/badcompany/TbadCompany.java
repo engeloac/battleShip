@@ -35,7 +35,7 @@ public class TbadCompany extends JFrame{
     }
     private void userInterface() {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setSize(1040, 600);
+        setSize(1040, 611);
         setVisible(true);
         setLocationRelativeTo(null);
         setTitle("Batalla Naval");
