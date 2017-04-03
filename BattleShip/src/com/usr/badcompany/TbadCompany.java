@@ -76,7 +76,7 @@ public class TbadCompany extends JFrame{
         jpanel1.setBounds(0, 0, 300, 600);
         jpanel2.setBackground(new Color(46, 204, 113));
         jpanel2.setLayout(new AbsoluteLayout());
-        jpanel2.setBounds(301, 0, 1040, 600);
+        jpanel2.setBounds(301, 0, 1040, 611);
         
     }
     private void initBoard() {
@@ -85,7 +85,7 @@ public class TbadCompany extends JFrame{
         for (int i = 0; i < 10;i++) {
             addX = 310;
             for (int j = 0; j < 10; j++) {
-                board1[i][j] = new Tbox("/com/usr/resorcs/square.jpeg", addX, addY, addX + 36, addY + 36, false);
+                board1[i][j] = new Tbox("/com/usr/resorcs/water1.png", addX, addY, addX + 36, addY + 36, false);
                 System.out.println(board1[i][j].getImgHorizontal()+"");    
                 addX = addX += 58;
             }
@@ -94,7 +94,6 @@ public class TbadCompany extends JFrame{
         
     }
     private void iniBattleShip() {
-        //battleShip[0] = new TbattleShip("", "", 0, 0, 0, 0, boolean nombres={false} , false);
     }
     private void showBoard() {
         for (int i = 0; i < 10; i++) {
