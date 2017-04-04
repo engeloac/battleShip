@@ -14,18 +14,18 @@ import javax.swing.ImageIcon;
  */
 public class Tbox{
 
-    public Tbox(String directionHorizontal, int positionX, int positionY, int positionX1, int positionY1, boolean state) {
+    public Tbox(String directionHorizontal, int positionX, int positionY, boolean state) {
         this.directionHorizontal = directionHorizontal;
-        this.positionX = positionX;
-        this.positionY = positionY;
-        this.positionX1 = positionX1;
-        this.positionY1 = positionY1;
-        this.state = state;
         this.imgHorizontal = new ImageIcon(new ImageIcon(getClass().getResource(directionHorizontal)).getImage());
+        this.imgHorizontalX = positionX;
+        this.imgHorizontalY = positionY;
+        this.imgHorizontalX1 = this.imgHorizontal.getImage().getWidth(null);
+        this.imgHorizontalY1 = this.imgHorizontal.getImage().getHeight(null);
+        this.state = state;
     }
 
     public void paint(Graphics g) {
-        g.drawImage(imgHorizontal.getImage(), positionX, positionY, 48, 48, null);
+        g.drawImage(imgHorizontal.getImage(), imgHorizontalX, imgHorizontalY, 48, 48, null);
     }
     
     public String getDirection() {
@@ -44,43 +44,42 @@ public class Tbox{
         this.imgHorizontal = imgHorizontal;
     }
 
-    public int getPositionX() {
-        return positionX;
+    public int getImgHorizontalX() {
+        return imgHorizontalX;
     }
 
-    public void setPositionX(int positionX) {
-        this.positionX = positionX;
+    public void setImgHorizontalX(int imgHorizontalX) {
+        this.imgHorizontalX = imgHorizontalX;
     }
 
-    public int getPositionY() {
-        return positionY;
+    public int getImgHorizontalY() {
+        return imgHorizontalY;
     }
 
-    public void setPositionY(int positionY) {
-        this.positionY = positionY;
+    public void setImgHorizontalY(int imgHorizontalY) {
+        this.imgHorizontalY = imgHorizontalY;
     }
 
-    public int getPositionX1() {
-        return positionX1;
+    public int getImgHorizontalX1() {
+        return imgHorizontalX1;
     }
 
-    public void setPositionX1(int positionX1) {
-        this.positionX1 = positionX1;
+    public void setImgHorizontalX1(int imgHorizontalX1) {
+        this.imgHorizontalX1 = imgHorizontalX1;
     }
 
-    public int getPositionY1() {
-        return positionY1;
+    public int getImgHorizontalY1() {
+        return imgHorizontalY1;
     }
 
-    public void setPositionY1(int positionY1) {
-        this.positionY1 = positionY1;
+    public void setImgHorizontalY1(int imgHorizontalY1) {
+        this.imgHorizontalY1 = imgHorizontalY1;
     }
 
     public boolean getState() {
         return state;
     }
 
-    
     public void setState(boolean state) {
         this.state = state;
     }
@@ -96,10 +95,10 @@ public class Tbox{
     //VarBox
     private String directionHorizontal;
     private ImageIcon imgHorizontal;
-    private int positionX;
-    private int positionY;
-    private int positionX1;
-    private int positionY1;
+    private int imgHorizontalX;
+    private int imgHorizontalY;
+    private int imgHorizontalX1;
+    private int imgHorizontalY1;
     private boolean state;
     //VarBox
 }

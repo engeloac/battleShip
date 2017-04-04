@@ -77,12 +77,12 @@ public class TbadCompany extends JFrame{
     private boolean checkMouseRange() {
         boolean range = false;
         for (int i = 0; i < 8; i++) {
-            Point point = getMousePosition();
-            if (point.x > battleShip[i].getPositionX() && point.x < battleShip[i].getPositionX1()){
-                if (point.y > battleShip[i].getPositionY() && point.x < battleShip[i].getImgHorizontal().getIconHeight()) {
-                    range = true;
-                    System.out.println("En rango");
-                }
+            Point point = jpanel1.getMousePosition();
+            //System.out.println(point.x+"--"+point.y);
+            if (point.x > battleShip[i].getImgHorizontalX() && point.x < battleShip[i].getImgHorizontalX1()){
+                //range = true;
+                System.out.println(battleShip[i].getImgHorizontalX()+"--"+battleShip[i].getImgHorizontalX1());
+                System.out.println("Estoy en rango");
             }
         }
         return range;
@@ -90,9 +90,8 @@ public class TbadCompany extends JFrame{
     private void mouseClickedStatus() {
         if (checkMouseRange()) {
             if (mouseStatus == 0) {
-            activeMouse = true;
-            mouseStatus++;
-            
+                activeMouse = true;
+                mouseStatus++;
             }
             else {
                 activeMouse = false;
@@ -101,7 +100,7 @@ public class TbadCompany extends JFrame{
         }  
     }
     private void mouseMotion(MouseEvent evt) {
-        System.out.println(evt.getX()+"--"+evt.getY());
+        //System.out.println(evt.getX()+"--"+evt.getY());
     }
     private void variableStart() {
         jpanel1 = new JPanel();
@@ -126,20 +125,16 @@ public class TbadCompany extends JFrame{
         for (int i = 0; i < 10;i++) {
             addX = 310;
             for (int j = 0; j < 10; j++) {
-                board1[i][j] = new Tbox("/com/usr/resorcs/water1.png", addX, addY, addX + 36, addY + 36, false);
-                System.out.println(board1[i][j].getImgHorizontal()+"");    
+                board1[i][j] = new Tbox("/com/usr/resorcs/water1.png", addX, addY, false);   
                 addX = addX += 58;
             }
             addY = addY += 55;
-        }
-        
+        }   
     }
     private void initBattleShip() {
-        int addX = 14;
-        int addY = 10;
-        int addX1 = 240;
-        int addY1 = 0;
-        battleShip[0] = new TbattleShip("/com/usr/resorcs/5horizontal.jpg", "/com/usr/resorcs/2vertical.jpg", addX, addY, 48, 48, new boolean[] {true,true,true,true,true},true, false);
+        int addX = 28;
+        int addY = 8;
+        battleShip[0] = new TbattleShip("/com/usr/resorcs/5horizontal.jpg","/com/usr/resorcs/2vertical.jpg", addX, addX, 0, 0,new boolean[] {true,true,true,true,true},true, false);
         battleShip[1] = new TbattleShip("/com/usr/resorcs/4horizontal.jpg", "/com/usr/resorcs/4vertical.jpg", addX, (addY*2) + 52, 0, 0, new boolean[] {true,true,true,true},true, false);
         battleShip[2] = new TbattleShip("/com/usr/resorcs/4horizontal.jpg", "/com/usr/resorcs/4vertical.jpg", addX, (addY*4) + 96, 0, 0, new boolean[] {true,true,true,true},true, false);
         battleShip[3] = new TbattleShip("/com/usr/resorcs/3horizontal.jpg", "/com/usr/resorcs/3vertical.jpg", addX, (addY*6) + 96+48, 0, 0, new boolean[] {true,true,true},true, false);
@@ -155,9 +150,7 @@ public class TbadCompany extends JFrame{
                 board1[i][j].paint(jpanel2.getGraphics());
             }
         }
-        for (int i = 0; i < 8; i++) {
-            battleShip[i].paint(jpanel1.getGraphics());
-        }
+        battleShip[0].paint(jpanel1.getGraphics());
     }
     //VarBox
     private JPanel jpanel1;
