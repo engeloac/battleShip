@@ -14,14 +14,15 @@ import javax.swing.ImageIcon;
  */
 public class Tbox{
 
-    public Tbox(String directionHorizontal, int positionX, int positionY, boolean state) {
+    public Tbox(String directionHorizontal, int positionX, int positionY, boolean state,boolean [] sizeBox) {
         this.directionHorizontal = directionHorizontal;
         this.imgHorizontal = new ImageIcon(new ImageIcon(getClass().getResource(directionHorizontal)).getImage());
         this.imgHorizontalX = positionX;
         this.imgHorizontalY = positionY;
-        this.imgHorizontalX1 = this.imgHorizontal.getImage().getWidth(null);
-        this.imgHorizontalY1 = this.imgHorizontal.getImage().getHeight(null);
-        this.state = state;
+        this.sizeBox = sizeBox;
+        this.imgHorizontalX1 = this.imgHorizontalX + (48*this.sizeBox.length);
+        this.imgHorizontalY1 = this.imgHorizontalY + 48;
+        
     }
 
     public void paint(Graphics g) {
@@ -75,14 +76,6 @@ public class Tbox{
     public void setImgHorizontalY1(int imgHorizontalY1) {
         this.imgHorizontalY1 = imgHorizontalY1;
     }
-
-    public boolean getState() {
-        return state;
-    }
-
-    public void setState(boolean state) {
-        this.state = state;
-    }
     
     public String getDirectionHorizontal() {
         return directionHorizontal;
@@ -91,7 +84,14 @@ public class Tbox{
     public void setDirectionHorizontal(String directionHorizontal) {
         this.directionHorizontal = directionHorizontal;
     }
+    
+    public boolean[] getSizeBox() {
+        return sizeBox;
+    }
 
+    public void setSizeBox(boolean[] sizeBox) {
+        this.sizeBox = sizeBox;
+    }
     //VarBox
     private String directionHorizontal;
     private ImageIcon imgHorizontal;
@@ -99,6 +99,6 @@ public class Tbox{
     private int imgHorizontalY;
     private int imgHorizontalX1;
     private int imgHorizontalY1;
-    private boolean state;
+    private boolean[] sizeBox;
     //VarBox
 }

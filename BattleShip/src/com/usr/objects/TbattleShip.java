@@ -15,32 +15,29 @@ import javax.swing.ImageIcon;
 public class TbattleShip extends Tbox{
     
     public TbattleShip(String direction, String direction1, int imgHorizontalX, int imgHorizontalY,
-                                                            int imgVerticalX, int imgVerticalY,boolean [] battleShipSize,boolean orientation, 
+                                                            int imgVerticalX, int imgVerticalY,boolean [] sizeBox,boolean orientation, 
                                                             boolean state) {
-        super(direction, imgHorizontalX, imgHorizontalY, state);
-        this.battleShipeSize = battleShipSize;
+        super(direction, imgHorizontalX, imgHorizontalY, state,sizeBox);
         this.direction1 = direction1;
         this.orientation = orientation;
         this.imgVertical = new ImageIcon(new ImageIcon(getClass().getResource(direction1)).getImage());
         this.imgVerticalX = imgVerticalX;
         this.imgVerticalY = imgVerticalY;
-        this.imgVerticalX1 = this.imgVertical.getIconWidth();
-        this.imgVerticalY1 = this.imgVertical.getIconHeight();
+
+        this.imgVerticalX1 = this.imgVerticalX + 48;
+        this.imgVerticalY1 = this.imgVerticalY + (48*getSizeBox().length);
     }
     @Override
     public void paint(Graphics g) {
-        int m = 48;
-        if (orientation) g.drawImage(getImgHorizontal().getImage(), getImgHorizontalX(), getImgHorizontalY(), m*(battleShipeSize.length), m, null);
+        if (orientation) g.drawImage(getImgHorizontal().getImage(), getImgHorizontalX(), getImgHorizontalY(),
+                                    this.imgVerticalX + (48*getSizeBox().length), 48, null);
+        else {
+            g.drawImage(getImgHorizontal().getImage(), getImgHorizontalX(), getImgHorizontalY(),
+                                    48, this.imgVerticalY + (48*getSizeBox().length), null);
+        }
     }
     //----------------------------------------------------------------------------
-    public boolean[] getBattleShipeSize() {
-        return battleShipeSize;
-    }
-
-    public void setBattleShipeSize(boolean[] battleShipeSize) {
-        this.battleShipeSize = battleShipeSize;
-    }
-
+    
     public String getDirection1() {
         return direction1;
     }
@@ -56,7 +53,7 @@ public class TbattleShip extends Tbox{
             this.imgVertical = imgVertical;
     }
     
-    public boolean isOrientation() {
+    public boolean getOrientation() {
         return orientation;
     }
 
@@ -97,7 +94,6 @@ public class TbattleShip extends Tbox{
     }
     
     //VarBox 
-    private boolean[] battleShipeSize;
     private boolean orientation;
     private String direction1;
     private ImageIcon imgVertical;
@@ -106,6 +102,4 @@ public class TbattleShip extends Tbox{
     private int imgVerticalX1;
     private int imgVerticalY1;
     //VarBox
-
-    
 }
