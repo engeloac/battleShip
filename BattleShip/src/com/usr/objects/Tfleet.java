@@ -5,6 +5,7 @@
  */
 package com.usr.objects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
@@ -12,30 +13,39 @@ import javax.swing.ImageIcon;
  *
  * @author sirbobby
  */
-public class TbattleShip extends Tbox{
+public class Tfleet extends Tpenny{
     
-    public TbattleShip(String direction, String direction1, int imgHorizontalX, int imgHorizontalY,
+    public Tfleet(String direction, String direction1, int imgHorizontalX, int imgHorizontalY,
                                                             int imgVerticalX, int imgVerticalY,boolean [] sizeBox,boolean orientation, 
                                                             boolean state) {
-        super(direction, imgHorizontalX, imgHorizontalY, state,sizeBox);
+        super(direction, imgHorizontalX, imgHorizontalY, state,sizeBox,false);
         this.direction1 = direction1;
         this.orientation = orientation;
         this.imgVertical = new ImageIcon(new ImageIcon(getClass().getResource(direction1)).getImage());
         this.imgVerticalX = imgVerticalX;
         this.imgVerticalY = imgVerticalY;
-
-        this.imgVerticalX1 = this.imgVerticalX + 48;
-        this.imgVerticalY1 = this.imgVerticalY + (48*getSizeBox().length);
+        this.imgVerticalX1 = 48;
+        this.imgVerticalY1 = (48*this.getSizeBox().length);
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("com.usr.objects.TbattleShip.main()");
     }
     @Override
     public void paint(Graphics g) {
-        if (orientation) g.drawImage(getImgHorizontal().getImage(), getImgHorizontalX(), getImgHorizontalY(),
-                                    this.imgVerticalX + (48*getSizeBox().length), 48, null);
-        else {
-            g.drawImage(getImgHorizontal().getImage(), getImgHorizontalX(), getImgHorizontalY(),
-                                    48, this.imgVerticalY + (48*getSizeBox().length), null);
+        Color backgroud = g.getColor();
+        if (orientation) {
+            g.drawImage(getImgHorizontal().getImage(), this.getImgHorizontalX(), this.getImgHorizontalY(),
+                                    this.getImgHorizontalX1(), 48, null);
+            g.setColor(backgroud);
         }
+        else {
+            g.drawImage(getImgVertical().getImage(), this.getImgVerticalX(), this.getImgVerticalY(),
+                       48, this.imgVerticalY1, null);
+        }
+        
     }
+
     //----------------------------------------------------------------------------
     
     public String getDirection1() {

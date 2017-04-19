@@ -12,21 +12,25 @@ import javax.swing.ImageIcon;
  *
  * @author sirbobby
  */
-public class Tbox{
+public class Tpenny{
 
-    public Tbox(String directionHorizontal, int positionX, int positionY, boolean state,boolean [] sizeBox) {
+    public Tpenny(String directionHorizontal, int positionX, int positionY, boolean state,boolean [] sizeBox,boolean underFleet) {
         this.directionHorizontal = directionHorizontal;
         this.imgHorizontal = new ImageIcon(new ImageIcon(getClass().getResource(directionHorizontal)).getImage());
         this.imgHorizontalX = positionX;
         this.imgHorizontalY = positionY;
         this.sizeBox = sizeBox;
-        this.imgHorizontalX1 = this.imgHorizontalX + (48*this.sizeBox.length);
-        this.imgHorizontalY1 = this.imgHorizontalY + 48;
-        
+        this.imgHorizontalX1 = (48*this.sizeBox.length);
+        this.imgHorizontalY1 = 48;
+        this.underFleet = underFleet;
     }
-
+    
+    public static void main(String[] args) {
+        System.out.println("com.usr.objects.Tbox.main()");
+    }
     public void paint(Graphics g) {
-        g.drawImage(imgHorizontal.getImage(), imgHorizontalX, imgHorizontalY, 48, 48, null);
+        g.drawImage(imgHorizontal.getImage(), this.imgHorizontalX, this.imgHorizontalY, 
+                this.imgHorizontalX1, this.imgHorizontalY1, null);
     }
     
     public String getDirection() {
@@ -92,6 +96,14 @@ public class Tbox{
     public void setSizeBox(boolean[] sizeBox) {
         this.sizeBox = sizeBox;
     }
+    
+    public boolean isUnderFleet() {
+        return underFleet;
+    }
+
+    public void setUnderFleet(boolean underFleet) {
+        this.underFleet = underFleet;
+    }
     //VarBox
     private String directionHorizontal;
     private ImageIcon imgHorizontal;
@@ -100,5 +112,6 @@ public class Tbox{
     private int imgHorizontalX1;
     private int imgHorizontalY1;
     private boolean[] sizeBox;
+    private boolean underFleet;
     //VarBox
 }

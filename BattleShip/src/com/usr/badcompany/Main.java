@@ -5,23 +5,17 @@
  */
 package com.usr.badcompany;
 
-
+import com.local.interfaces.TmainWindow;
 
 /**
  *
  * @author sirbobby
  */
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
-        TbadCompany frame = new TbadCompany();
-        frame.setLocationRelativeTo(null);
+        TmainWindow frame = new TmainWindow();
         frame.setVisible(true);
-        
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
     }
-    
 }

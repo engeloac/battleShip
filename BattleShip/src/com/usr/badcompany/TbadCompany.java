@@ -5,13 +5,14 @@
  */
 package com.usr.badcompany;
 
-import com.usr.objects.TbattleShip;
-import com.usr.objects.Tbox;
+import com.usr.objects.Tfleet;
+import com.usr.objects.Tevents;
+import com.usr.objects.Tpenny;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.WindowAdapter;
+import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
@@ -20,161 +21,140 @@ import org.netbeans.lib.awtextra.AbsoluteLayout;
  * @author sirbobby
  */
 public class TbadCompany extends JFrame{
-   
+    //_iconstructor
     public TbadCompany() {
         initVariable();
         variableProperties();
-        userInterface();
         initBoard();
         initShip();
+        tevent.showShip(tfleet, jpanel1);
+        tevent.ShowBoard(Tboard, jpanel1);
     }
+    //_imain
     public static void main(String[] args) {
         TbadCompany frame = new TbadCompany();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setTitle("Batalla Naval");
+        frame.setResizable(false);
     }
-    private void userInterface() {
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setSize(1040, 611);
+    //End _main
+    //_ifunhod
+    private void variableProperties() {
+        setDefaultCloseOperation(3);
+        setSize(1340, 611);
         setVisible(true);
         setResizable(false);
         setLocationRelativeTo(null);
         setTitle("Batalla Naval");
-        
-        jpanel2.addMouseListener(new MouseAdapter() {
+        jpanel1.setBackground(new Color(46, 204, 113));
+        jpanel1.setLayout(new AbsoluteLayout());
+        jpanel1.setBounds(0, 0, 1340, 611);
+        jpanel1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
-                mouseDo(evt);
-            }
-        });
-        jpanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                mouseDoMove(evt);
-            }
-        });
-        
-        add(jpanel2);
-    }
-    
-    private void initVariable() {
-        jpanel2 = new JPanel();
-        board1 = new Tbox[10][10];
-        mouseStatus = 0;
-        activeMouse = false;
-    }
-    
-    private void variableProperties() {
-        jpanel2.setBackground(new Color(46, 204, 113));
-        jpanel2.setLayout(new AbsoluteLayout());
-        jpanel2.setBounds(0, 0, 1040, 611);
-    }
-    
-    private void mouseDo(MouseEvent evt) {
-        if (checkShipRange() < 8) {
-            activeMouse = true;
-            mouseStatus++;
-        }
-        else {
-            activeMouse = false;
-        }
-        if (evt.getButton()==3) {
-            System.out.println("asdfasdfasdfasdf");
-        }
-        showElements();
-    }
-    
-    private void mouseDoMove(MouseEvent evt) {
-        //local VarBox
-        int battleShipePosition;
-        Point point = jpanel2.getMousePosition();
-        //local VarBox
-        if (activeMouse) {
-                    System.out.println("Voy a arrastrar");
-                    if (mouseStatus < 2) {
-                        battleShipePosition = checkShipRange();
-                        if ( battleShip[battleShipePosition].getOrientation()) {
-                            battleShip[battleShipePosition].setImgHorizontalX(point.x);
-                            battleShip[battleShipePosition].setImgHorizontalY(point.y);
-                            showElements();
-                            
+                //local VarBox
+                Point point = jpanel1.getMousePosition();
+                boolean addMouseCount = false;
+                //local VarBox
+                repaint();
+                if (evt.getButton() == 1) mouseCount++;
+                if (mouseCount == 1) {
+                    if (tevent.checkBoardRange(jpanel1)) mouseCount = 0;
+                    if (tevent.checkShipRange(point, tfleet) < 8) selectedShip = tevent.checkShipRange(point, tfleet);
+                    if (evt.getButton() == 3) {
+                        if (selectedShip < 8) {
+                            tfleet[selectedShip].setOrientation(!tfleet[selectedShip].getOrientation());
+                            if (tfleet[selectedShip].getOrientation()) {
+                                tfleet[selectedShip].setImgHorizontalX(jpanel1.getMousePosition().x);
+                                tfleet[selectedShip].setImgHorizontalY(jpanel1.getMousePosition().y);
+                            }
+                            else {
+                                tfleet[selectedShip].setImgVerticalX(jpanel1.getMousePosition().x);
+                                tfleet[selectedShip].setImgVerticalY(jpanel1.getMousePosition().y);
+                            }
                         }
-                        else {
-                            battleShip[battleShipePosition].setImgVerticalX(point.x);
-                            battleShip[battleShipePosition].setImgVerticalY(point.y);
+                        repaint();
+                        tevent.showShip(tfleet, jpanel1);
+                    }
+                    if (tfleet[selectedShip].getOrientation()) {
+                        if (point.x > tfleet[selectedShip].getImgHorizontalX()  && point.x <(tfleet[selectedShip].getImgHorizontalX() + tfleet[selectedShip].getImgHorizontalX1())) {
+                            if (point.y > tfleet[selectedShip].getImgHorizontalY()  && point.y <(tfleet[selectedShip].getImgHorizontalY() + tfleet[selectedShip].getImgHorizontalY1())) {
+                                clicked = true;
+                            }
                         }
                     }
                     else {
-                        mouseStatus = 0;
+                        if (point.x > tfleet[selectedShip].getImgVerticalX()  && point.x <(tfleet[selectedShip].getImgVerticalX() + tfleet[selectedShip].getImgVerticalX1())) {
+                            if (point.y > tfleet[selectedShip].getImgVerticalY()  && point.y <(tfleet[selectedShip].getImgVerticalY() + tfleet[selectedShip].getImgVerticalY1())) {
+                                clicked = true;
+                            }
+                        }
                     }
                 }
-    }
-    
-    private boolean checkBoardRange() {
-        //local VarBox
-        Point point = jpanel2.getMousePosition();
-        boolean inRange = false;
-        //local VarBox
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (point.x > board1[i][j].getImgHorizontalX() && point.x < board1[i][j].getImgHorizontalX1()) {
-                    if (point.y > board1[i][j].getImgHorizontalY() && point.y < board1[i][j].getImgHorizontalY1()) {
-                        inRange = true;
+                else {
+                    if (mouseCount == 2) {
+                        if (tevent.checkBoardRange(jpanel1)) {
+                            if (clicked) {
+                                tfleet[selectedShip] = tevent.setFleet(tfleet[selectedShip], Tboard, jpanel1);
+                                tevent.ShowBoard(Tboard, jpanel1);
+                                tevent.showShip(tfleet, jpanel1);
+                                addMouseCount = false;
+                            }
+                        }
+                        else {
+                            mouseCount = 1;
+                            addMouseCount = true;
+                        }
+                    }
+                    if (!addMouseCount) {
+                        mouseCount = 0;
+                        clicked = false;
                     }
                 }
             }
-        }
-        return inRange;
-    }
-    
-    private int checkShipRange() {
-        //local VarBox
-        int inRange = 20;
-        Point point = jpanel2.getMousePosition();
-        //local VarBox
-        for (int i = 0; i < 8; i++) {
-            if (point.x > battleShip[i].getImgHorizontalX() && point.x < battleShip[i].getImgHorizontalX1()) {
-                if (point.y > battleShip[i].getImgHorizontalY() && point.y < battleShip[i].getImgHorizontalY1()) {
-                   inRange = i;
+        });
+        jpanel1.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent evt) {
+                if (clicked) {
+                    if (tfleet[selectedShip].getOrientation()) {
+                        tfleet[selectedShip].setImgHorizontalX(jpanel1.getMousePosition().x);
+                        tfleet[selectedShip].setImgHorizontalY(jpanel1.getMousePosition().y);
+                    }
+                    else {
+                        tfleet[selectedShip].setImgVerticalX(jpanel1.getMousePosition().x);
+                        tfleet[selectedShip].setImgVerticalY(jpanel1.getMousePosition().y);
+                    }
                 }
+                tevent.ShowBoard(Tboard, jpanel1);
+                tevent.showShip(tfleet, jpanel1);      
             }
-        }
-        return inRange;
+        });
+        add(jpanel1);
     }
-    
-    private void showElements() {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                board1[i][j].paint(jpanel2.getGraphics());
-            }
-        }
-        for (int i = 0; i < 8; i++) {
-            battleShip[i].paint(jpanel2.getGraphics());
-        }
-    }
-    
+    //End _funhod
+    //_iinit
     private void initShip() {
         //local VarBox
         int addX = 8;
-        int addY = 8;
         int addMargin = 2;
         //local VarBox
-        battleShip[0] = new TbattleShip("/com/usr/resorcs/5horizontal.jpg","/com/usr/resorcs/2vertical.jpg", 
+        tfleet[0] = new Tfleet("/com/usr/resorcs/5horizontal.jpg","/com/usr/resorcs/5vertical.jpg", 
                                         addX, (8 + addMargin), 0, 0,new boolean[] {true,true,true,true,true},true, false);
-        battleShip[1] = new TbattleShip("/com/usr/resorcs/4horizontal.jpg", "/com/usr/resorcs/4vertical.jpg", addX, (60 + addMargin), 0, 0, 
+        tfleet[1] = new Tfleet("/com/usr/resorcs/4horizontal.jpg", "/com/usr/resorcs/4vertical.jpg", addX, (60 + addMargin), 20, 20, 
                                         new boolean[] {true,true,true,true},true, false);
-        battleShip[2] = new TbattleShip("/com/usr/resorcs/4horizontal.jpg", "/com/usr/resorcs/4vertical.jpg", addX, (112 + addMargin), 0, 0, 
+        tfleet[2] = new Tfleet("/com/usr/resorcs/4horizontal.jpg", "/com/usr/resorcs/4vertical.jpg", addX, (112 + addMargin), 20, 20, 
                                         new boolean[] {true,true,true,true},true, false);
-        battleShip[3] = new TbattleShip("/com/usr/resorcs/3horizontal.jpg", "/com/usr/resorcs/3vertical.jpg", addX, (164 + addMargin), 0, 0, 
+        tfleet[3] = new Tfleet("/com/usr/resorcs/3horizontal.jpg", "/com/usr/resorcs/3vertical.jpg", addX, (164 + addMargin), 20, 20, 
                                         new boolean[] {true,true,true},true, false);
-        battleShip[4] = new TbattleShip("/com/usr/resorcs/3horizontal.jpg", "/com/usr/resorcs/3vertical.jpg", addX, (216 + addMargin) , 0, 0, 
+        tfleet[4] = new Tfleet("/com/usr/resorcs/3horizontal.jpg", "/com/usr/resorcs/3vertical.jpg", addX, (216 + addMargin) , 20, 20, 
                                         new boolean[] {true,true,true},true, false);
-        battleShip[5] = new TbattleShip("/com/usr/resorcs/2horizontal.jpg", "/com/usr/resorcs/2vertical.jpg", addX, (268 + addMargin), 0, 0, 
+        tfleet[5] = new Tfleet("/com/usr/resorcs/2horizontal.jpg", "/com/usr/resorcs/2vertical.jpg", addX, (268 + addMargin), 20, 20, 
                                         new boolean[] {true,true},true, false);
-        battleShip[6] = new TbattleShip("/com/usr/resorcs/2horizontal.jpg", "/com/usr/resorcs/2vertical.jpg", addX, (320 + addMargin), 0, 0, 
+        tfleet[6] = new Tfleet("/com/usr/resorcs/2horizontal.jpg", "/com/usr/resorcs/2vertical.jpg", addX, (320 + addMargin), 20, 20, 
                                     new boolean[] {true,true},true, false);
-        battleShip[7] = new TbattleShip("/com/usr/resorcs/2horizontal.jpg", "/com/usr/resorcs/2vertical.jpg", addX, (372 + addMargin), 0, 0, 
+        tfleet[7] = new Tfleet("/com/usr/resorcs/2horizontal.jpg", "/com/usr/resorcs/2vertical.jpg", addX, (372 + addMargin), 20, 20, 
                                     new boolean[] {true,true},true, false);   
     }
     
@@ -184,21 +164,31 @@ public class TbadCompany extends JFrame{
         int addY =10;
         //local VarBox
         for (int i = 0; i < 10; i++) {
-            addX = 310;
-            
+            addX = 270;
             for (int j = 0; j < 10; j++) {
-                board1[i][j] = new Tbox("/com/usr/resorcs/water1.png", addX, addY, false,new boolean[] {true});
+                Tboard[i][j] = new Tpenny("/com/usr/resorcs/water1.png", addX, addY, false,new boolean[] {true},false);
                 addX += 52;
             }
             addY += 52;
         }
-    } 
-    //VarBox
-    private JPanel jpanel2;
-    //private JPanel jpanel2;
-    private Tbox board1[][];
-    private final TbattleShip[] battleShip = new TbattleShip[8];
-    private int mouseStatus;
-    private boolean activeMouse;
-    //VarBox
+    }
+        
+    private void initVariable() {
+        jpanel1 = new JPanel();
+        Tboard = new Tpenny[10][10];
+        tevent = new Tevents();
+        mouseCount = 0;
+        clicked = false;
+        selectedShip = 20;
+    }
+    //End _init
+    //_iVarBox
+    private JPanel jpanel1;
+    private Tpenny Tboard[][];
+    private final Tfleet[] tfleet = new Tfleet[8];
+    Tevents tevent;
+    private int mouseCount;
+    private boolean clicked;
+    private int selectedShip;
+    //End _VarBox
 }
